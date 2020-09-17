@@ -29,10 +29,7 @@
     "karma-webpack": "^4.0.2"
   },
   "dependencies": {
-    "@pixi/app": "^5.0.4",
-    "@pixi/core": "^5.0.4",
-    "@pixi/loaders": "^5.0.4",
-    "@pixi/sprite": "^5.0.4",
-    "@pixi/ticker": "^5.0.4"
+    "babel-eslint": "^10.1.0",
+    "pixi.js": "^5.3.3"
   }
 }
