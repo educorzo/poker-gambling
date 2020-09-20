@@ -1,5 +1,6 @@
 var PIXI = require('pixi.js');
 import Card from './Card.js';
+import Shuffler from './Shuffler.js';
 
 export default class Hand extends PIXI.Container {
   constructor(textures) {
@@ -16,6 +17,20 @@ export default class Hand extends PIXI.Container {
       card.x = position;
       this.addChild(card);
       position = position + card.width + card.width/10;
+    });
+  }
+
+  fillCards() {
+    let shuffler = new Shuffler();
+
+    this.cards.forEach((card) => {
+      card.setValue(shuffler.getRandomCardValue());
+    });
+  }
+
+  reveal() {
+    this.cards.forEach((card) => {
+      card.showFace();
     });
   }
 
