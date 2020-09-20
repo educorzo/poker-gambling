@@ -29,6 +29,7 @@
     "karma-webpack": "^4.0.2"
   },
   "dependencies": {
+    "@educorzo/poker-library": "^1.0.1",
     "babel-eslint": "^10.1.0",
     "pixi.js": "^5.3.3"
   }
