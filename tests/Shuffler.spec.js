@@ -3,14 +3,16 @@ import Shuffler from './../src/Shuffler.js';
 describe('Shuffler', function () {
   let randomState = 0;
 
-  //Return different value when it has been call more than twice
+  //Return different value every two calls
   const fakeRandom = function ()  {
-    if(randomState < 2) {
+    if(randomState <  2) {
       randomState++;
-
       return 0;
+    } else if (randomState < 4) {
+      randomState++;
+      return 0.5;
     }
-    randomState--;
+    randomState++;
 
     return 1;
   }
@@ -20,6 +22,10 @@ describe('Shuffler', function () {
       { value: 0, expectedCard: '2d'}, //Min possible card
       { value: 1, expectedCard: 'Ah'} //Max possible card
     ];
+
+    beforeEach(function () {
+        Shuffler.currentValues = []; //Cleaning currentValues for each test
+    });
 
     testCases.forEach((test) => {
       it(`should return a valid value with random value ${test.value} (0,1)`, () =>  {
@@ -38,10 +44,10 @@ describe('Shuffler', function () {
         cardValue;
 
       Math.random = fakeRandom;
-      shuffler.currentValues = ['Ah'];
+      Shuffler.currentValues = ['2d', '8c'];
       cardValue = shuffler.getRandomCardValue();
 
-      expect(cardValue).toEqual('2d');
+      expect(cardValue).toEqual('Ah');
     });
   });
 });
