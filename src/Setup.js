@@ -1,11 +1,9 @@
-import Card from './Card.js';
+import Hand from './Hand.js';
 
 export default class Setup {
-  init(resources, app){
-    let card = new Card(resources.cards.textures);
+  init(resources, app) {
+    let hand = new Hand(resources.cards.textures);
 
-    card.setValue('Qs');
-  	app.stage.addChild(card);
-    card.showFace();
+    app.stage.addChild(hand);
   }
 }
