@@ -39,6 +39,12 @@ export default class Hand extends PIXI.Container {
     });
   }
 
+  hide() {
+    this.cards.forEach((card) => {
+      card.showBack();
+    });
+  }
+
   toString() {
     var result = '';
 
