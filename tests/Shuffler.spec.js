@@ -50,4 +50,13 @@ describe('Shuffler', function () {
       expect(cardValue).toEqual('Ah');
     });
   });
+
+  it('should reset the current card values (dealt cards)', function () {
+    let shuffler = new Shuffler();
+
+    Shuffler.currentValues = ['2d', '8c'];
+    shuffler.resetCurrentValues();
+
+    expect(Shuffler.currentValues).toEqual([]);
+  });
 });

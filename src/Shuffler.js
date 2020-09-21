@@ -14,6 +14,10 @@ export default class Shuffler {
     Shuffler.currentValues.push(result);
     return result;
   }
+
+  resetCurrentValues() {
+    Shuffler.currentValues = [];
+  }
 }
 
 Shuffler.currentValues = [];
