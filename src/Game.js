@@ -8,6 +8,7 @@ export default class Game {
     this.hand2 = elements.hand2;
     this.revealButton = elements.revealButton;
     this.startButton = elements.startButton;
+    this.winnerText = elements.winnerText;
 
     this.revealButton.on('click', this.finishGame.bind(this));
     this.startButton.on('click', this.startGame.bind(this));
@@ -21,11 +22,19 @@ export default class Game {
     this.hand2.fillCards();
     this.hand1.hide();
     this.hand2.reveal();
+    this.winnerText.setText('');
   }
 
   finishGame() {
+    let winner = PokerComparer.compareTwoHands(this.hand1.toString(), this.hand2.toString());
     this.hand1.reveal();
 
-    console.log(PokerComparer.compareTwoHands(hand1.toString(), hand2.toString()));
+    if( winner > 0 ) {
+      this.winnerText.setText('You lose');
+    } else if ( winner < 0) {
+      this.winnerText.setText('You win !!');
+    } else {
+      this.winnerText.setText('Tie');
+    }
   }
 }
