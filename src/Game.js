@@ -13,7 +13,7 @@ export default class Game {
     this.revealButton.on('click', this._finishGame.bind(this));
     this.startButton.on('click', this._startGame.bind(this));
 
-    this.startGame();
+    this._startGame();
   }
 
   _startGame() {
