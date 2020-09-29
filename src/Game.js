@@ -10,13 +10,13 @@ export default class Game {
     this.startButton = elements.startButton;
     this.winnerText = elements.winnerText;
 
-    this.revealButton.on('click', this.finishGame.bind(this));
-    this.startButton.on('click', this.startGame.bind(this));
+    this.revealButton.on('click', this._finishGame.bind(this));
+    this.startButton.on('click', this._startGame.bind(this));
 
     this.startGame();
   }
 
-  startGame() {
+  _startGame() {
     this.shuffler.resetCurrentValues();
     this.hand1.showHand();
     this.hand2.showHand();
@@ -27,7 +27,7 @@ export default class Game {
     this.winnerText.setText('');
   }
 
-  finishGame() {
+  _finishGame() {
     let winner = PokerComparer.compareTwoHands(this.hand1.toString(), this.hand2.toString());
     this.hand1.reveal();
 

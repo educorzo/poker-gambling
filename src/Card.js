@@ -7,22 +7,17 @@ export default class Card extends PIXI.Container {
 
     this.cardTextures = textures;
     this.scale.set(0.5);
-    this.createFace();
-    this.createBack();
-    this.setDefault();
+    this._createFace();
+    this._createBack();
+    this._setDefault();
   }
 
   setValue(value) {
     this.value = value;
   }
 
-  setDefault() {
-    this.value = '';
-    this.showBack();
-  }
-  
   showFace() {
-    this.setTextures();
+    this._setTextures();
     this.backgroundCard.renderable = true;
     this.rank.renderable = true;
     this.suit.renderable = true;
@@ -42,21 +37,24 @@ export default class Card extends PIXI.Container {
     return this.value.toString();
   }
 
-  /*private*/
-  createBack() {
+  _setDefault() {
+    this.value = '';
+    this.showBack();
+  }
+
+  _createBack() {
     this.back = PIXI.Sprite.from(this.cardTextures['cover1.png']);
 
     this.addChild(this.back);
   }
 
-  /*private*/
-  createFace() {
+  _createFace() {
     this.backgroundCard = new PIXI.Sprite.from(this.cardTextures['white1.png']);
     this.rank = new PIXI.Sprite.from(PIXI.Texture.EMPTY);
     this.suit = new PIXI.Sprite.from(PIXI.Texture.EMPTY);
     this.suitCorner = new PIXI.Sprite.from(PIXI.Texture.EMPTY);
 
-    this.alocateSprites();
+    this._alocateSprites();
 
     this.addChild(this.backgroundCard);
     this.addChild(this.rank);
@@ -64,8 +62,7 @@ export default class Card extends PIXI.Container {
     this.addChild(this.suitCorner);
   }
 
-  /*private*/
-  alocateSprites() {
+  _alocateSprites() {
     this.rank.y = this.backgroundCard.height/7;
     this.rank.x = this.backgroundCard.width/6;
     this.suit.y = this.backgroundCard.height/1.75;
@@ -78,8 +75,7 @@ export default class Card extends PIXI.Container {
     this.suitCorner.anchor.set(0.5);
   }
 
-  /*private*/
-  setTextures() {
+  _setTextures() {
     var converter = new CardTextureNameConverter(),
     textureNames = converter.getTexturesNames(this.value);
 

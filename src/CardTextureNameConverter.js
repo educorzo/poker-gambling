@@ -13,7 +13,7 @@ export default class CardTextureNameConverter{
 
     rank = value.charAt(0),
     suit = value.charAt(1),
-    color = this.getColor(suit);
+    color = this._getColor(suit);
 
     return {
       rank : `${color}_${rank}.png`,
@@ -22,8 +22,7 @@ export default class CardTextureNameConverter{
     };
   }
 
-  /* private */
-  getColor(suit) {
+  _getColor(suit) {
     if (suit === 's' || suit === 'c')
     {
       return '0';
