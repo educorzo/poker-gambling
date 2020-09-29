@@ -19,7 +19,10 @@ export default class Setup {
       },
       game = new Game(elements);
 
-    hand2.y = 300;
+    hand1.x = 75;
+    hand1.y = 100;
+    hand2.x = 75;
+    hand2.y = 400;
     revealButton.x = 800;
     startButton.x = 800;
     revealButton.y = 100;

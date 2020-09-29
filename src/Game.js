@@ -18,6 +18,8 @@ export default class Game {
 
   startGame() {
     this.shuffler.resetCurrentValues();
+    this.hand1.showHand();
+    this.hand2.showHand();
     this.hand1.fillCards();
     this.hand2.fillCards();
     this.hand1.hide();
@@ -29,9 +31,9 @@ export default class Game {
     let winner = PokerComparer.compareTwoHands(this.hand1.toString(), this.hand2.toString());
     this.hand1.reveal();
 
-    if( winner > 0 ) {
+    if (winner > 0) {
       this.winnerText.setText('You lose');
-    } else if ( winner < 0) {
+    } else if (winner < 0) {
       this.winnerText.setText('You win !!');
     } else {
       this.winnerText.setText('Tie');

@@ -1,28 +1,23 @@
 var PIXI = require('pixi.js');
 import Card from './Card.js';
 import Shuffler from './Shuffler.js';
+import DealCardsAnimation from './animations/DealCardsAnimation.js';
 
 export default class Hand extends PIXI.Container {
   constructor(textures, cards) {
     super();
 
-    if(cards === undefined ) {
-      this.createHand(textures);
+    if (cards === undefined) {
+      this._createHand(textures);
     } else {
-      this.setCards(cards);
+      this._setCards(cards);
     }
-
-    this.showHand();
   }
 
   showHand() {
-    let position = 0;
+    var dealCardsAnimation = new DealCardsAnimation();
 
-    this.cards.forEach((card) => {
-      card.x = position;
-      this.addChild(card);
-      position = position + card.width + card.width/10;
-    });
+    dealCardsAnimation.deal(this.cards);
   }
 
   fillCards() {
@@ -55,13 +50,14 @@ export default class Hand extends PIXI.Container {
     return result.substring(0, result.length - 1);
   }
 
-  /*private*/
-  createHand(textures) {
-    this.cards = [ ...Array(5).keys() ].map( i => new Card(textures));
+  _createHand(textures) {
+    this.cards = [...Array(5).keys()].map(i => new Card(textures));
+    this.cards.forEach((card) => {
+      this.addChild(card);
+    });
   }
 
-  /*private*/
-  setCards(cards) {
+  _setCards(cards) {
     this.cards = [];
 
     cards.forEach((card) => {
