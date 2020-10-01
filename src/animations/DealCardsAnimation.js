@@ -1,38 +1,28 @@
 var PIXI = require('pixi.js');
+import gsap from 'gsap';
 import Card from './../Card.js';
 
 export default class DealCardsAnimation {
-
   deal(cards) {
-    let finishPosition = 0,
-      ticker = new PIXI.Ticker();
-    finishPosition = this._getFinishPosition(cards, 0);
-
     cards.forEach((card, index) => {
       card.x = -200;
+      card.rotation = 0;
       card.pivot.x = card.width;
       card.pivot.y = card.height;
     });
 
-    ticker.add(this._moveCards.bind(this, cards, 0, finishPosition, ticker));
-
-    ticker.start();
+    this._moveCards(cards, 0);
   }
 
-  _moveCards(cards, index, finishPosition, ticker) {
-    if (cards[index].position.x < finishPosition) {
-      cards[index].position.x += 3;
-      cards[index].rotation += 0.2;
-    } else if (index + 1 < cards.length) {
-      cards[index].rotation = 0;
-      ticker.destroy();
-      ticker = new PIXI.Ticker();
-      finishPosition = this._getFinishPosition(cards, index + 1);
-      ticker.add(this._moveCards.bind(this, cards, index + 1, finishPosition, ticker));
-      ticker.start();
-    } else {
-      cards[index].rotation = 0;
-      ticker.destroy();
+  _moveCards(cards, index) {
+    let finishPosition = this._getFinishPosition(cards, index);
+    if (index < cards.length) {
+      gsap.to(cards[index], {
+        x: finishPosition,
+        rotation: 6 * Math.PI,
+        time: 5000,
+        onComplete: this._moveCards.bind(this, cards, index + 1)
+      });
     }
   }
 
