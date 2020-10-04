@@ -1,7 +1,7 @@
 var PIXI = require('pixi.js');
 import gsap from 'gsap';
-import Card from './Card.js';
-import Shuffler from './Shuffler.js';
+import Card from '../Card.js';
+import Shuffler from '../Shuffler.js';
 
 export default class Reel extends PIXI.Container {
   constructor(textures) {
@@ -11,11 +11,12 @@ export default class Reel extends PIXI.Container {
     this._setCards(textures);
     this.cardHeight = this.cards[0].height;
     this._makeFrame();
+    this.animation = gsap.timeline();
   }
 
   spin() {
     let randomizer = Math.round(Math.random() * (this.numSymbols - 1));
-    this.animation = gsap.timeline();
+
     this._simpleSpin(1.75);
     this._simpleSpin(1.50);
     this._simpleSpin(1);
@@ -23,7 +24,7 @@ export default class Reel extends PIXI.Container {
     this._simpleSpin(0.5);
     this._simpleSpin(0.25);
     this._simpleSpin(0.25);
-    this._downReel(randomizer, 0.01);
+    this.downReel(randomizer, 0.01);
     this._simpleSpin(0.5);
     this._simpleSpin(0.75);
     this._simpleSpin(1);
@@ -73,7 +74,7 @@ export default class Reel extends PIXI.Container {
     });
   }
 
-  _downReel(times, duration) {
+  downReel(times, duration) {
     this.animation.to(this.cards, {
       duration: duration,
       ease: "none",

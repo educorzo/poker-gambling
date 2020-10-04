@@ -1,5 +1,6 @@
 var PIXI = require('pixi.js');
 import Reel from './Reel.js';
+import SlotButtons from './SlotButtons.js';
 
 export default class Slot extends PIXI.Container {
   constructor(textures) {
@@ -9,6 +10,14 @@ export default class Slot extends PIXI.Container {
         reel.x = reel.width * index;
         this.addChild(reel);
     });
+
+    this.buttons = new SlotButtons();
+    this.buttons.y = this.reels[0].height - 50;
+    this.buttons.x = -17;
+    this.buttons.scale.x = this.buttons.scale.y = 0.5;
+    this.addChild(this.buttons);
+
+    this.buttons.on('click', this.onButtonsClick.bind(this));
   }
 
   spin() {
@@ -25,5 +34,14 @@ export default class Slot extends PIXI.Container {
     });
 
     return result.slice(0, -1);
+  }
+
+  onButtonsClick(interactiveEvent) {
+    this.reels[this._getIdButton(interactiveEvent)].downReel(1, 1);
+
+  }
+
+  _getIdButton(interactiveEvent) {
+    return interactiveEvent.target.id;
   }
 }

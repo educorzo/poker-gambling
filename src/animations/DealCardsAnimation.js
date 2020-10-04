@@ -5,7 +5,7 @@ import Card from './../Card.js';
 export default class DealCardsAnimation {
   deal(cards) {
     cards.forEach((card, index) => {
-      card.x = -200;
+      card.x = -1000;
       card.rotation = 0;
       card.pivot.x = card.width;
       card.pivot.y = card.height;
