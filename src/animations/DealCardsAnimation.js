@@ -15,8 +15,9 @@ export default class DealCardsAnimation {
   }
 
   _moveCards(cards, index) {
-    let finishPosition = this._getFinishPosition(cards, index);
+    let finishPosition;
     if (index < cards.length) {
+      finishPosition = this._getFinishPosition(cards, index);
       gsap.to(cards[index], {
         x: finishPosition,
         rotation: 6 * Math.PI,

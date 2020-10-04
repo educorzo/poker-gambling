@@ -5,13 +5,15 @@ export default class Game {
   constructor(elements) {
     this.shuffler = new Shuffler();
     this.hand1 = elements.hand1;
-    this.hand2 = elements.hand2;
     this.revealButton = elements.revealButton;
     this.startButton = elements.startButton;
     this.winnerText = elements.winnerText;
+    this.slot = elements.slot;
+    this.spinButton = elements.spinButton;
 
     this.revealButton.on('click', this._finishGame.bind(this));
     this.startButton.on('click', this._startGame.bind(this));
+    this.spinButton.on('click', this._spin.bind(this));
 
     this._startGame();
   }
@@ -19,16 +21,14 @@ export default class Game {
   _startGame() {
     this.shuffler.resetCurrentValues();
     this.hand1.showHand();
-    this.hand2.showHand();
     this.hand1.fillCards();
-    this.hand2.fillCards();
     this.hand1.hide();
-    this.hand2.reveal();
+
     this.winnerText.setText('');
   }
 
   _finishGame() {
-    let winner = PokerComparer.compareTwoHands(this.hand1.toString(), this.hand2.toString());
+    let winner = PokerComparer.compareTwoHands(this.hand1.toString(), this.slot.toString());
     this.hand1.reveal();
 
     if (winner > 0) {
@@ -38,5 +38,9 @@ export default class Game {
     } else {
       this.winnerText.setText('Tie');
     }
+  }
+
+  _spin() {
+    this.slot.spin();
   }
 }
