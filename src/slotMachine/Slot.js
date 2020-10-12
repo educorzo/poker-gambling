@@ -1,14 +1,23 @@
 var PIXI = require('pixi.js');
+import GameState from '../GameState.js';
 import Reel from './Reel.js';
 import SlotButtons from './SlotButtons.js';
 
 export default class Slot extends PIXI.Container {
-  constructor(textures) {
+  constructor(textures, gameState) {
     super();
-    this.reels  =[...Array(5).keys()].map(i => new Reel(textures));
+
+    this._textures = textures;
+    this._gameState = gameState;
+
+    this.init();
+  }
+
+  init() {
+    this.reels = [...Array(5).keys()].map(i => new Reel(this._textures));
     this.reels.forEach((reel, index) => {
-        reel.x = reel.width * index;
-        this.addChild(reel);
+      reel.x = reel.width * index;
+      this.addChild(reel);
     });
 
     this.buttons = new SlotButtons();
@@ -22,13 +31,13 @@ export default class Slot extends PIXI.Container {
 
   spin() {
     this.reels.forEach((reel, index) => {
-        setTimeout(reel.spin.bind(reel), index * 400);
+      setTimeout(reel.spin.bind(reel), index * 400);
     });
   }
 
   toString() {
     var result = '';
-    
+
     this.reels.forEach((reel) => {
       result += reel.getCardInTheMiddle().toString() + ' ';
     });
@@ -37,8 +46,17 @@ export default class Slot extends PIXI.Container {
   }
 
   onButtonsClick(interactiveEvent) {
-    this.reels[this._getIdButton(interactiveEvent)].downReel(1, 1);
+    if (this._gameState.getState() === GameState.Start) {
+      this._gameState.changeState(GameState.Down1);
+      this._downOnePossition(this._getIdButton(interactiveEvent));
+    } else if (this._gameState.getState() === GameState.Down1) {
+      this._gameState.changeState(GameState.Down2);
+      this._downOnePossition(this._getIdButton(interactiveEvent));
+    }
+  }
 
+  _downOnePossition(numberOfReel) {
+    this.reels[numberOfReel].downReel(1, 1);
   }
 
   _getIdButton(interactiveEvent) {
