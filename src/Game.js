@@ -11,6 +11,7 @@ export default class Game {
     this._startButton = elements.startButton;
     this._winnerText = elements.winnerText;
     this._slot = elements.slot;
+    this._score = elements.score;
 
     this._revealButton.on('click', this._finishGame.bind(this));
     this._startButton.on('click', this._startGame.bind(this));
@@ -19,7 +20,7 @@ export default class Game {
   }
 
   _startGame() {
-    if (this._gameState.getState() === GameState.Reveal || this._gameState.getState() === GameState.Initial) {
+    if (this._score.canIPlay() && (this._gameState.getState() === GameState.Reveal || this._gameState.getState() === GameState.Initial)) {
       this._shuffler.resetCurrentValues();
       this._gameState.changeState(GameState.Start);
       this._hand1.showHand();
@@ -27,6 +28,7 @@ export default class Game {
       this._hand1.hide();
       this._slot.init();
       this._slot.spin();
+      this._score.reduce();
 
       this._winnerText.setText('');
     }
@@ -42,6 +44,7 @@ export default class Game {
       this._winnerText.setText('You lose');
     } else if (winner < 0) {
       this._winnerText.setText('You win !!');
+      this._score.addVictory();
     } else {
       this._winnerText.setText('Tie');
     }

@@ -4,11 +4,12 @@ import Reel from './Reel.js';
 import SlotButtons from './SlotButtons.js';
 
 export default class Slot extends PIXI.Container {
-  constructor(textures, gameState) {
+  constructor(textures, gameState, score) {
     super();
 
     this._textures = textures;
     this._gameState = gameState;
+    this._score = score;
 
     this.init();
   }
@@ -46,12 +47,16 @@ export default class Slot extends PIXI.Container {
   }
 
   onButtonsClick(interactiveEvent) {
-    if (this._gameState.getState() === GameState.Start) {
-      this._gameState.changeState(GameState.Down1);
-      this._downOnePossition(this._getIdButton(interactiveEvent));
-    } else if (this._gameState.getState() === GameState.Down1) {
-      this._gameState.changeState(GameState.Down2);
-      this._downOnePossition(this._getIdButton(interactiveEvent));
+    if(this._score.canIPlay()){
+      if (this._gameState.getState() === GameState.Start) {
+        this._gameState.changeState(GameState.Down1);
+        this._score.reduce();
+        this._downOnePossition(this._getIdButton(interactiveEvent));
+      } else if (this._gameState.getState() === GameState.Down1) {
+        this._gameState.changeState(GameState.Down2);
+        this._score.reduce();
+        this._downOnePossition(this._getIdButton(interactiveEvent));
+      }
     }
   }
 

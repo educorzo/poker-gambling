@@ -4,12 +4,14 @@ import Slot from './slotMachine/Slot.js';
 import Button from './designTools/Button.js';
 import Text from './designTools/Text.js';
 import GameState from './GameState.js';
+import Score from './Score.js';
 
 export default class Setup {
   init(resources, app) {
     let gameState = new GameState(),
+      score = new Score(5),
       hand1 = new Hand(resources.cards.textures),
-      slot = new Slot(resources.cards.textures, gameState),
+      slot = new Slot(resources.cards.textures, gameState, score),
       revealButton = new Button('Reveal'),
       startButton = new Button('Start'),
       winnerText = new Text(),
@@ -19,7 +21,8 @@ export default class Setup {
         startButton: startButton,
         winnerText: winnerText,
         slot: slot,
-        gameState: gameState
+        gameState: gameState,
+        score: score
       },
       game = new Game(elements);
 
@@ -39,5 +42,6 @@ export default class Setup {
     app.stage.addChild(startButton);
     app.stage.addChild(winnerText);
     app.stage.addChild(slot);
+    app.stage.addChild(score);
   }
 }
