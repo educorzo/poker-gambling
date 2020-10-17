@@ -24,10 +24,10 @@ export default class Slot extends PIXI.Container {
     this.buttons = new SlotButtons(this._textures);
     this.buttons.y = this.reels[0].height - 50;
     this.buttons.scale.x = this.buttons.scale.y = 0.5;
-    
     this.addChild(this.buttons);
+    this._addLine();
 
-    this.buttons.on('click', this.onButtonsClick.bind(this));
+    this.buttons.on('click', this._onButtonsClick.bind(this));
   }
 
   spin() {
@@ -46,7 +46,17 @@ export default class Slot extends PIXI.Container {
     return result.slice(0, -1);
   }
 
-  onButtonsClick(interactiveEvent) {
+_addLine() {
+  const graphics = new PIXI.Graphics();
+
+  // Rectangle
+  graphics.beginFill(0x00008b);
+  graphics.drawRect(0, this.height/1.15, this.width, 1);
+
+  this.addChild(graphics);
+}
+
+  _onButtonsClick(interactiveEvent) {
     if(this._score.canIPlay()){
       if (this._gameState.getState() === GameState.Start) {
         this._gameState.changeState(GameState.Down1);
