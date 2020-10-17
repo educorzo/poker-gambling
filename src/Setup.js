@@ -1,3 +1,4 @@
+var PIXI = require('pixi.js');
 import Hand from './Hand.js';
 import Game from './Game.js';
 import Slot from './slotMachine/Slot.js';
@@ -24,7 +25,8 @@ export default class Setup {
         gameState: gameState,
         score: score
       },
-      game = new Game(elements);
+      game = new Game(elements),
+      gameContainer = new PIXI.Container();
 
     hand1.x = 200;
     hand1.y = 75;
@@ -35,17 +37,16 @@ export default class Setup {
     startButton.y = 460;
     revealButton.x = 350;
     revealButton.y = 460;
-
     winnerText.x = 250;
     winnerText.y = 250;
-
     slot.x = 190;
 
-    app.stage.addChild(hand1);
-    app.stage.addChild(revealButton);
-    app.stage.addChild(startButton);
-    app.stage.addChild(slot);
-    app.stage.addChild(score);
-    app.stage.addChild(winnerText);
+    gameContainer.addChild(hand1);
+    gameContainer.addChild(revealButton);
+    gameContainer.addChild(startButton);
+    gameContainer.addChild(slot);
+    gameContainer.addChild(score);
+    gameContainer.addChild(winnerText);
+    app.stage.addChild(gameContainer);
   }
 }
