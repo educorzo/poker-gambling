@@ -10,28 +10,48 @@ export default class Slot extends PIXI.Container {
     this._textures = textures;
     this._gameState = gameState;
     this._score = score;
+    this._backgroundColor = 0x000000;
+    this._frameSize = 20;
+    this._timeBetweenReels = 100;
 
     this.init();
   }
 
   init() {
-    this._addReels();
+    this._createReels();
+    this._addBackground();
+ 
     this._addSlotButtons();
+    this._addReels();
+
     this._addLine();
 
     this.buttons.on('click', this._onButtonsClick.bind(this));
   }
 
+  _addBackground() {
+    let reelArea = this.reels[0].getVisualArea();
+    
+    this._background = new PIXI.Graphics();
+
+    this._background.beginFill(this._backgroundColor);
+    this._background.drawRect(0, reelArea.y - this._frameSize, this.width + this._frameSize, reelArea.height + this._frameSize * 2);
+    this._background.endFill();
+
+    this.addChild(this._background);
+  }
+
   spin() {
-    let promises = []
+    let me = this,
+      promises = [];
 
     this.reels.forEach((reel, index) => {
-      promises[index] = new Promise(function(resolve) {
+      promises[index] = new Promise(function (resolve) {
         setTimeout(function () {
-          reel.spin().then(function(){
+          reel.spin().then(function () {
             resolve();
           });
-        }, index * 100);
+        }, index * me._timeBetweenReels);
       })
     });
 
@@ -47,27 +67,38 @@ export default class Slot extends PIXI.Container {
 
     return result.slice(0, -1);
   }
-  
-  _addReels() {
+
+  _createReels() {
     this.reels = [...Array(5).keys()].map(i => new Reel(this._textures));
     this.reels.forEach((reel, index) => {
-      reel.x = (reel.width * index) + 10 * index;
+      reel.x = (reel.width * index) + this._frameSize / 2 * index + this._frameSize;
+    });
+  }
+
+  _addReels() {
+    this.reels.forEach((reel, index) => {
       this.addChild(reel);
     });
   }
 
   _addSlotButtons() {
+    let reelArea = this.reels[0].getVisualArea();
+
     this.buttons = new SlotButtons(this._textures);
-    this.buttons.y = this.reels[0].height - 50;
+
+    this.buttons.x = 20; //TODO: Make button aligned with reels
+    this.buttons.y = reelArea.height + reelArea.y + this._frameSize;
     this.buttons.scale.x = this.buttons.scale.y = 0.5;
+
     this.addChild(this.buttons);
   }
 
   _addLine() {
-    const graphics = new PIXI.Graphics();
+    let graphics = new PIXI.Graphics(),
+      reelArea = this.reels[0].getVisualArea();;
 
     graphics.beginFill(0x00008b);
-    graphics.drawRect(0, this.height / 1.15, this.width, 1);
+    graphics.drawRect(0, reelArea.height / 2 + reelArea.y, this.width, 1);
 
     this.addChild(graphics);
   }
@@ -87,7 +118,7 @@ export default class Slot extends PIXI.Container {
   }
 
   _downOnePossition(numberOfReel) {
-    this.reels[numberOfReel].downReel(1, 1.75);
+    this.reels[numberOfReel].downReel(1, 1.5);
   }
 
   _getIdButton(interactiveEvent) {

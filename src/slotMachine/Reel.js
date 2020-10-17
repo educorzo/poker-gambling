@@ -25,7 +25,7 @@ export default class Reel extends PIXI.Container {
     this.downReel(randomizer, 0.01);
     this._simpleSpin(0.25);
     this._simpleSpin(0.75);
-    this._simpleSpin(1.75);
+    this._simpleSpin(1.50);
     return this._rebound();
   }
 
@@ -42,6 +42,15 @@ export default class Reel extends PIXI.Container {
     this._tween(duration, this.cardHeight * times);
   }
 
+  getVisualArea() {
+    return {
+      x: 0,
+      y: this.cardHeight * 2 - 15,
+      width: this.width,
+      height: this.height - this.cardHeight * 2.65,
+    }
+  }
+
   _setCards(textures) {
     var shuffler = new Shuffler();
 
@@ -56,12 +65,13 @@ export default class Reel extends PIXI.Container {
   }
 
   _makeFrame() {
-    let upperBound = new PIXI.Graphics();
+    let upperBound = new PIXI.Graphics(),
+      visualArea = this.getVisualArea();
 
-    upperBound.drawRect(0, this.cardHeight * 2 - 15, this.width, this.height - this.cardHeight * 2.65);
+    upperBound.drawRect(visualArea.x, visualArea.y, visualArea.width, visualArea.height);
     upperBound.renderable = true;
     upperBound.cacheAsBitmap = true;
-    
+
     this.addChild(upperBound);
     this.mask = upperBound;
   }
@@ -71,8 +81,8 @@ export default class Reel extends PIXI.Container {
   }
 
   _rebound() {
-    this._tween(1.75, -10);
-    return this._tween(1.75, 10);
+    this._tween(1.50, -10);
+    return this._tween(1.50, 10);
   }
 
   _tween(duration, yMovement) {
@@ -80,17 +90,17 @@ export default class Reel extends PIXI.Container {
       duration: duration,
       ease: 'none',
       y: '+=' + yMovement,
-      pixi: {blurY : this._blurring(duration)},
+      pixi: { blurY: this._blurring(duration) },
       modifiers: {
         y: gsap.utils.unitize(y => parseFloat(y) % (this.cardHeight * this.numSymbols))
       }
     });
-  } 
+  }
 
   _blurring(duration) {
     let maxBlurry = 7,
-      maxDuration = 1.75;
+      maxDuration = 1.5;
 
-    return maxBlurry - (maxBlurry/maxDuration * duration);
+    return maxBlurry - (maxBlurry / maxDuration * duration);
   }
 }

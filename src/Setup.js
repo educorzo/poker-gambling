@@ -32,14 +32,15 @@ export default class Setup {
     hand1.y = 75;
     hand1.scale.x = hand1.scale.y = 0.50;
     score.x = 200;
-    score.y = 520;
+    score.y = 530;
     startButton.x = 250;
-    startButton.y = 460;
+    startButton.y = 475;
     revealButton.x = 350;
-    revealButton.y = 460;
+    revealButton.y = 475;
     winnerText.x = 250;
     winnerText.y = 250;
-    slot.x = 190;
+    slot.x = 175;
+    slot.y = 10;
 
     gameContainer.addChild(hand1);
     gameContainer.addChild(revealButton);
@@ -47,6 +48,7 @@ export default class Setup {
     gameContainer.addChild(slot);
     gameContainer.addChild(score);
     gameContainer.addChild(winnerText);
+
     app.stage.addChild(gameContainer);
   }
 }
