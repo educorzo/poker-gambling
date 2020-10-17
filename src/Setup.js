@@ -37,16 +37,15 @@ export default class Setup {
     revealButton.y = 375;
 
     winnerText.x = 250;
-    winnerText.y = 120;
+    winnerText.y = 250;
 
     slot.x = 190;
-    slot.y = 50;
 
     app.stage.addChild(hand1);
     app.stage.addChild(revealButton);
     app.stage.addChild(startButton);
-    app.stage.addChild(winnerText);
     app.stage.addChild(slot);
     app.stage.addChild(score);
+    app.stage.addChild(winnerText);
   }
 }
