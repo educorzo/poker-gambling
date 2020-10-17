@@ -17,14 +17,14 @@ export default class Slot extends PIXI.Container {
   init() {
     this.reels = [...Array(5).keys()].map(i => new Reel(this._textures));
     this.reels.forEach((reel, index) => {
-      reel.x = reel.width * index;
+      reel.x = (reel.width * index) + 10 * index;
       this.addChild(reel);
     });
 
-    this.buttons = new SlotButtons();
+    this.buttons = new SlotButtons(this._textures);
     this.buttons.y = this.reels[0].height - 50;
-    this.buttons.x = -17;
     this.buttons.scale.x = this.buttons.scale.y = 0.5;
+    
     this.addChild(this.buttons);
 
     this.buttons.on('click', this.onButtonsClick.bind(this));
@@ -32,7 +32,7 @@ export default class Slot extends PIXI.Container {
 
   spin() {
     this.reels.forEach((reel, index) => {
-      setTimeout(reel.spin.bind(reel), index * 400);
+      setTimeout(reel.spin.bind(reel), index * 100);
     });
   }
 

@@ -1,5 +1,6 @@
 var PIXI = require('pixi.js');
 import gsap from 'gsap';
+import PixiPlugin from "gsap/PixiPlugin";
 import Card from '../Card.js';
 import Shuffler from '../Shuffler.js';
 
@@ -11,25 +12,23 @@ export default class Reel extends PIXI.Container {
     this._setCards(textures);
     this.cardHeight = this.cards[0].height;
     this._makeFrame();
+    PixiPlugin.registerPIXI(PIXI);
+    gsap.registerPlugin(PixiPlugin);
     this.animation = gsap.timeline();
   }
 
   spin() {
     let randomizer = Math.round(Math.random() * (this.numSymbols - 1));
 
-    this._simpleSpin(1.75);
     this._simpleSpin(1.50);
-    this._simpleSpin(1);
-    this._simpleSpin(0.75);
-    this._simpleSpin(0.5);
     this._simpleSpin(0.25);
     this._simpleSpin(0.25);
     this.downReel(randomizer, 0.01);
-    this._simpleSpin(0.5);
+    this._simpleSpin(0.25);
+    this._simpleSpin(0.25);
     this._simpleSpin(0.75);
-    this._simpleSpin(1);
-    this._simpleSpin(1.50);
     this._simpleSpin(1.75);
+    this._rebound();
   }
 
   getCardInTheMiddle() {
@@ -39,6 +38,10 @@ export default class Reel extends PIXI.Container {
       return parseInt(card.y) <= parseInt(me.cardHeight * (me.numSymbols / 2)) &&
         parseInt(card.y) >= parseInt(me.cardHeight * (me.numSymbols / 2) - 1);
     });
+  }
+
+  downReel(times, duration) {
+    this._tween(duration, this.cardHeight * times);
   }
 
   _setCards(textures) {
@@ -55,34 +58,41 @@ export default class Reel extends PIXI.Container {
   }
 
   _makeFrame() {
-    var upperBound = new PIXI.Graphics();
+    let upperBound = new PIXI.Graphics();
+
     upperBound.drawRect(0, this.cardHeight * 2 - 15, this.width, this.height - this.cardHeight * 2.65);
     upperBound.renderable = true;
     upperBound.cacheAsBitmap = true;
+    
     this.addChild(upperBound);
     this.mask = upperBound;
   }
 
   _simpleSpin(duration) {
+    this._tween(duration, this.cardHeight * this.numSymbols);
+  }
+
+  _rebound() {
+    this._tween(1.75, -10);
+    this._tween(1.75, 10);
+  }
+
+  _tween(duration, yMovement) {
     this.animation.to(this.cards, {
       duration: duration,
-      ease: "none",
-      y: "+=" + this.cardHeight * this.numSymbols,
+      ease: 'none',
+      y: '+=' + yMovement,
+      pixi: {blurY : this._blurring(duration)},
       modifiers: {
         y: gsap.utils.unitize(y => parseFloat(y) % (this.cardHeight * this.numSymbols))
       }
     });
-  }
+  } 
 
-  downReel(times, duration) {
-    this.animation.to(this.cards, {
-      duration: duration,
-      ease: "none",
-      y: "+=" + this.cardHeight * times,
-      modifiers: {
-        y: gsap.utils.unitize(y => parseFloat(y) % (this.cardHeight * this.numSymbols))
-      }
-    });
-  }
+  _blurring(duration) {
+    let maxBlurry = 7,
+      maxDuration = 1.75;
 
+    return maxBlurry - (maxBlurry/maxDuration * duration);
+  }
 }
