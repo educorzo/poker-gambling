@@ -6,7 +6,7 @@ export default class Card extends PIXI.Container {
     super();
 
     this.cardTextures = textures;
-    this.scale.set(0.5);
+    this.scale.set(0.51, 0.51);
     this._createFace();
     this._createBack();
     this._setDefault();
