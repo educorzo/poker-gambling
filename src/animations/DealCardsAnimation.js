@@ -1,6 +1,4 @@
-var PIXI = require('pixi.js');
 import gsap from 'gsap';
-import Card from './../Card.js';
 
 export default class DealCardsAnimation {
   deal(cards) {
@@ -21,7 +19,6 @@ export default class DealCardsAnimation {
       gsap.to(cards[index], {
         x: finishPosition,
         rotation: 6 * Math.PI,
-        time: 5000,
         onComplete: this._moveCards.bind(this, cards, index + 1)
       });
     }
