@@ -61,7 +61,7 @@ export default class Slot extends PIXI.Container {
   }
 
   _downOnePossition(numberOfReel) {
-    this.reels[numberOfReel].downReel(1, 1);
+    this.reels[numberOfReel].downReel(1, 1.75);
   }
 
   _getIdButton(interactiveEvent) {
