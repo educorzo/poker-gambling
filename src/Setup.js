@@ -29,12 +29,12 @@ export default class Setup {
     hand1.x = 200;
     hand1.y = 75;
     hand1.scale.x = hand1.scale.y = 0.50;
-    score.x = 550;
-    score.y = 250;
-    startButton.x = 550;
-    startButton.y = 300;
-    revealButton.x = 550;
-    revealButton.y = 375;
+    score.x = 200;
+    score.y = 520;
+    startButton.x = 250;
+    startButton.y = 460;
+    revealButton.x = 350;
+    revealButton.y = 460;
 
     winnerText.x = 250;
     winnerText.y = 250;
