@@ -15,16 +15,8 @@ export default class Slot extends PIXI.Container {
   }
 
   init() {
-    this.reels = [...Array(5).keys()].map(i => new Reel(this._textures));
-    this.reels.forEach((reel, index) => {
-      reel.x = (reel.width * index) + 10 * index;
-      this.addChild(reel);
-    });
-
-    this.buttons = new SlotButtons(this._textures);
-    this.buttons.y = this.reels[0].height - 50;
-    this.buttons.scale.x = this.buttons.scale.y = 0.5;
-    this.addChild(this.buttons);
+    this._addReels();
+    this._addSlotButtons();
     this._addLine();
 
     this.buttons.on('click', this._onButtonsClick.bind(this));
@@ -45,19 +37,33 @@ export default class Slot extends PIXI.Container {
 
     return result.slice(0, -1);
   }
+  
+  _addReels() {
+    this.reels = [...Array(5).keys()].map(i => new Reel(this._textures));
+    this.reels.forEach((reel, index) => {
+      reel.x = (reel.width * index) + 10 * index;
+      this.addChild(reel);
+    });
+  }
 
-_addLine() {
-  const graphics = new PIXI.Graphics();
+  _addSlotButtons() {
+    this.buttons = new SlotButtons(this._textures);
+    this.buttons.y = this.reels[0].height - 50;
+    this.buttons.scale.x = this.buttons.scale.y = 0.5;
+    this.addChild(this.buttons);
+  }
 
-  // Rectangle
-  graphics.beginFill(0x00008b);
-  graphics.drawRect(0, this.height/1.15, this.width, 1);
+  _addLine() {
+    const graphics = new PIXI.Graphics();
 
-  this.addChild(graphics);
-}
+    graphics.beginFill(0x00008b);
+    graphics.drawRect(0, this.height / 1.15, this.width, 1);
+
+    this.addChild(graphics);
+  }
 
   _onButtonsClick(interactiveEvent) {
-    if(this._score.canIPlay()){
+    if (this._score.canIPlay()) {
       if (this._gameState.getState() === GameState.Start) {
         this._gameState.changeState(GameState.Down1);
         this._score.reduce();
