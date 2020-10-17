@@ -27,14 +27,19 @@ export default class Setup {
       game = new Game(elements);
 
     hand1.x = 200;
-    hand1.y = 50;
+    hand1.y = 75;
     hand1.scale.x = hand1.scale.y = 0.50;
-    revealButton.x = 800;
-    startButton.x = 800;
-    revealButton.y = 100;
+    score.x = 550;
+    score.y = 250;
+    startButton.x = 550;
+    startButton.y = 300;
+    revealButton.x = 550;
+    revealButton.y = 375;
+
     winnerText.x = 250;
     winnerText.y = 120;
-    slot.x = 210;
+
+    slot.x = 190;
     slot.y = 50;
 
     app.stage.addChild(hand1);

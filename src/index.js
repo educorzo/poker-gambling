@@ -10,9 +10,9 @@ const app = new Application({
 	height: window.innerHeight,
 	backgroundColor: 0x008000,
 });
-document.body.appendChild(app.view);
+document.getElementById('gamecontainer').appendChild(app.view);
 
-loader.add('cards', './assets/cards.json');
+loader.add('cards', 'assets/cards.json');
 
 loader.load((loader, resources) => {
   let setup = new Setup();
