@@ -29,6 +29,7 @@ export default class Game {
       this._slot.init();
       this._score.reduce();
       this._winnerText.setText('');
+      this._gameState.changeState(GameState.Spinning);
 
       return this._slot.spin().then(function () {
         me._gameState.changeState(GameState.Start);

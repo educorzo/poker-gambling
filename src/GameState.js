@@ -8,9 +8,14 @@ export default class GameState {
     }
 
     changeState(state) {
-        if (this._state === GameState.Initial && state !== GameState.Start) {
+        if (this._state === GameState.Initial && state !== GameState.Spinning && state !== GameState.Initial) {
             throw new Error(`It is not possible to go from ${this._state} to ${state}`);
         }
+
+        if (this._state === GameState.Spinning && state !== GameState.Start) {
+            throw new Error(`It is not possible to go from ${this._state} to ${state}`);
+        }
+
         if (this._state === GameState.Start && state === GameState.Down2) {
             throw new Error(`It is not possible to go from ${this._state} to ${GameState.Down2}`);
         }
@@ -31,6 +36,7 @@ export default class GameState {
 
 GameState.Initial = 'Initial'
 GameState.Start = 'Start';
+GameState.Spinning = 'Spinning';
 GameState.Reveal = 'Reveal';
 GameState.Down1 = 'Down1';
 GameState.Down2 = 'Down2';
