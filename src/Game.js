@@ -20,33 +20,39 @@ export default class Game {
   }
 
   _startGame() {
+    let me = this;
     if (this._score.canIPlay() && (this._gameState.getState() === GameState.Reveal || this._gameState.getState() === GameState.Initial)) {
       this._shuffler.resetCurrentValues();
-      this._gameState.changeState(GameState.Start);
       this._hand1.showHand();
       this._hand1.fillCards();
       this._hand1.hide();
       this._slot.init();
-      this._slot.spin();
       this._score.reduce();
-
       this._winnerText.setText('');
+
+      return this._slot.spin().then(function () {
+        me._gameState.changeState(GameState.Start);
+      });
     }
   }
 
   _finishGame() {
-    let winner = PokerComparer.compareTwoHands(this._hand1.toString(), this._slot.toString());
+    let winner = '';
+    if (this._gameState.getState() === GameState.Start || this._gameState.getState() === GameState.Down1 ||
+      this._gameState.getState() === GameState.Down2) {
+      winner = PokerComparer.compareTwoHands(this._hand1.toString(), this._slot.toString());
 
-    this._gameState.changeState(GameState.Reveal);
-    this._hand1.reveal();
+      this._gameState.changeState(GameState.Reveal);
+      this._hand1.reveal();
 
-    if (winner > 0) {
-      this._winnerText.setText('You lose');
-    } else if (winner < 0) {
-      this._winnerText.setText('You win !!');
-      this._score.addVictory();
-    } else {
-      this._winnerText.setText('Tie');
+      if (winner > 0) {
+        this._winnerText.setText('You lose');
+      } else if (winner < 0) {
+        this._winnerText.setText('You win !!');
+        this._score.addVictory();
+      } else {
+        this._winnerText.setText('Tie');
+      }
     }
   }
 }

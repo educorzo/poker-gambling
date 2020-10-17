@@ -20,15 +20,13 @@ export default class Reel extends PIXI.Container {
   spin() {
     let randomizer = Math.round(Math.random() * (this.numSymbols - 1));
 
-    this._simpleSpin(1.50);
-    this._simpleSpin(0.25);
+    this._simpleSpin(1);
     this._simpleSpin(0.25);
     this.downReel(randomizer, 0.01);
     this._simpleSpin(0.25);
-    this._simpleSpin(0.25);
     this._simpleSpin(0.75);
     this._simpleSpin(1.75);
-    this._rebound();
+    return this._rebound();
   }
 
   getCardInTheMiddle() {
@@ -74,11 +72,11 @@ export default class Reel extends PIXI.Container {
 
   _rebound() {
     this._tween(1.75, -10);
-    this._tween(1.75, 10);
+    return this._tween(1.75, 10);
   }
 
   _tween(duration, yMovement) {
-    this.animation.to(this.cards, {
+    return this.animation.to(this.cards, {
       duration: duration,
       ease: 'none',
       y: '+=' + yMovement,

@@ -23,9 +23,19 @@ export default class Slot extends PIXI.Container {
   }
 
   spin() {
+    let promises = []
+
     this.reels.forEach((reel, index) => {
-      setTimeout(reel.spin.bind(reel), index * 100);
+      promises[index] = new Promise(function(resolve) {
+        setTimeout(function () {
+          reel.spin().then(function(){
+            resolve();
+          });
+        }, index * 100);
+      })
     });
+
+    return Promise.all(promises);
   }
 
   toString() {
