@@ -13,6 +13,8 @@ export default class Slot extends PIXI.Container {
     this._backgroundColor = 0x000000;
     this._frameSize = 20;
     this._timeBetweenReels = 100;
+    this._numberOfReels = 5;
+    this._marginBetweenReels = this._frameSize / 2;
 
     this.init();
   }
@@ -20,7 +22,7 @@ export default class Slot extends PIXI.Container {
   init() {
     this._createReels();
     this._addBackground();
- 
+
     this._addSlotButtons();
     this._addReels();
 
@@ -30,12 +32,14 @@ export default class Slot extends PIXI.Container {
   }
 
   _addBackground() {
-    let reelArea = this.reels[0].getVisualArea();
-    
+    let reelArea = this.reels[0].getVisualArea(),
+      widthOfSlotVisualArea = (reelArea.width * this._numberOfReels) +
+        this._marginBetweenReels * (this._numberOfReels - 1) + this._frameSize * 2;
+
     this._background = new PIXI.Graphics();
 
     this._background.beginFill(this._backgroundColor);
-    this._background.drawRect(0, reelArea.y - this._frameSize, this.width + this._frameSize, reelArea.height + this._frameSize * 2);
+    this._background.drawRect(0, reelArea.y - this._frameSize, widthOfSlotVisualArea, reelArea.height + this._frameSize * 2);
     this._background.endFill();
 
     this.addChild(this._background);
@@ -69,7 +73,7 @@ export default class Slot extends PIXI.Container {
   }
 
   _createReels() {
-    this.reels = [...Array(5).keys()].map(i => new Reel(this._textures));
+    this.reels = [...Array(this._numberOfReels).keys()].map(i => new Reel(this._textures));
     this.reels.forEach((reel, index) => {
       reel.x = (reel.width * index) + this._frameSize / 2 * index + this._frameSize;
     });
