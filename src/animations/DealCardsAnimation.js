@@ -2,7 +2,7 @@ import gsap from 'gsap';
 
 export default class DealCardsAnimation {
   deal(cards) {
-    cards.forEach((card, index) => {
+    cards.forEach((card) => {
       card.x = -1000;
       card.rotation = 0;
       card.pivot.x = card.width;
@@ -25,8 +25,9 @@ export default class DealCardsAnimation {
   }
 
   _getFinishPosition(cards, index) {
-    const width = cards[index].width;
+    let width = cards[index].width,
+      spaceBetweenCards = width / 10;
 
-    return (width + width / 10) * (cards.length - 1) - (width + width / 10) * index;
+    return (width + spaceBetweenCards) * (cards.length - 1) - (width + spaceBetweenCards) * index;
   }
 }
