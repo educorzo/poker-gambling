@@ -15,27 +15,28 @@ export default class Hand extends PIXI.Container {
   }
 
   showHand() {
-    var dealCardsAnimation = new DealCardsAnimation();
+    //Animation should be improved
+  /* var dealCardsAnimation = new DealCardsAnimation();
 
-    dealCardsAnimation.deal(this.cards);
+    dealCardsAnimation.deal(this._cards);*/
   }
 
   fillCards() {
     let shuffler = new Shuffler();
 
-    this.cards.forEach((card) => {
+    this._cards.forEach((card) => {
       card.setValue(shuffler.getRandomCardValue());
     });
   }
 
   reveal() {
-    this.cards.forEach((card) => {
+    this._cards.forEach((card) => {
       card.showFace();
     });
   }
 
   hide() {
-    this.cards.forEach((card) => {
+    this._cards.forEach((card) => {
       card.showBack();
     });
   }
@@ -43,7 +44,7 @@ export default class Hand extends PIXI.Container {
   toString() {
     var result = '';
 
-    this.cards.forEach((card) => {
+    this._cards.forEach((card) => {
       result += card.toString() + ' ';
     });
 
@@ -51,17 +52,25 @@ export default class Hand extends PIXI.Container {
   }
 
   _createHand(textures) {
-    this.cards = [...Array(5).keys()].map(i => new Card(textures));
-    this.cards.forEach((card) => {
+    this._cards = [...Array(5).keys()].map(i => new Card(textures));
+    this._cards.forEach((card, index) => {
+      card.x = this._getPosition(this._cards, index);
       this.addChild(card);
     });
   }
 
   _setCards(cards) {
-    this.cards = [];
+    this._cards = [];
 
     cards.forEach((card) => {
-      this.cards.push(card);
+      this._cards.push(card);
     });
+  }
+
+  _getPosition(cards, index) {
+    let width = cards[index].width,
+      spaceBetweenCards = width / 10;
+
+    return width * index + spaceBetweenCards * index;
   }
 }
