@@ -3,7 +3,8 @@ import gsap from 'gsap';
 export default class DealCardsAnimation {
   deal(cards) {
     cards.forEach((card) => {
-      card.x = -1000;
+      card.x = 0;
+      card.y = -1000;
       card.rotation = 0;
       card.pivot.x = card.width;
       card.pivot.y = card.height;
@@ -18,6 +19,7 @@ export default class DealCardsAnimation {
       finishPosition = this._getFinishPosition(cards, index);
       gsap.to(cards[index], {
         x: finishPosition,
+        y: 0,
         rotation: 6 * Math.PI,
         onComplete: this._moveCards.bind(this, cards, index + 1)
       });
@@ -28,6 +30,6 @@ export default class DealCardsAnimation {
     let width = cards[index].width,
       spaceBetweenCards = width / 10;
 
-    return (width + spaceBetweenCards) * (cards.length - 1) - (width + spaceBetweenCards) * index;
+    return (width + spaceBetweenCards) * (cards.length - 1) - (width + spaceBetweenCards) * index + (width)/2;
   }
 }
