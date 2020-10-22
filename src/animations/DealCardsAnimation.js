@@ -2,34 +2,40 @@ import gsap from 'gsap';
 
 export default class DealCardsAnimation {
   deal(cards) {
-    cards.forEach((card) => {
-      card.x = 0;
-      card.y = -1000;
-      card.rotation = 0;
-      card.pivot.x = card.width;
-      card.pivot.y = card.height;
-    });
+    this.animation = gsap.timeline();
 
-    this._moveCards(cards, 0);
+    return this._moveCards(cards);
   }
 
-  _moveCards(cards, index) {
-    let finishPosition;
-    if (index < cards.length) {
-      finishPosition = this._getFinishPosition(cards, index);
-      gsap.to(cards[index], {
-        x: finishPosition,
-        y: 0,
-        rotation: 6 * Math.PI,
-        onComplete: this._moveCards.bind(this, cards, index + 1)
-      });
-    }
+  _moveCards(cards) {
+    this._moveCard(cards[0]);
+    this._moveCard(cards[1]);
+    this._moveCard(cards[2]);
+    this._moveCard(cards[3]);
+    return this._moveCard(cards[4]);
   }
 
-  _getFinishPosition(cards, index) {
-    let width = cards[index].width,
-      spaceBetweenCards = width / 10;
+  _moveCard(card) {
+    let originXPosition = card.x,
+      originYPosition = card.y,
+      finishXPosition = card.width / 2 + card.x,
+      finishYPosition = card.height / 2 + card.y;
 
-    return (width + spaceBetweenCards) * (cards.length - 1) - (width + spaceBetweenCards) * index + (width)/2;
+    card.rotation = 0;
+    card.y = -100;
+    card.x = 300;
+    card.pivot.set(card.width / 2 / card.scale.x, card.height / 2 / card.scale.y);
+
+    return this.animation.to(card, {
+      x: finishXPosition,
+      y: finishYPosition,
+      rotation: 6 * Math.PI,
+      onComplete: function () {
+        card.rotation = 0;
+        card.pivot.set(0, 0);
+        card.x = originXPosition,
+          card.y = originYPosition;
+      }
+    })
   }
 }

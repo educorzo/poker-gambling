@@ -15,8 +15,6 @@ export default class Game {
 
     this._revealButton.on('click', this._finishGame.bind(this));
     this._startButton.on('click', this._startGame.bind(this));
-
-    this._startGame();
   }
 
   _startGame() {

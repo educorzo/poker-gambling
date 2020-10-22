@@ -15,7 +15,7 @@ export default class Setup {
       slot = new Slot(resources.cards.textures, gameState, score),
       revealButton = new Button('Reveal'),
       startButton = new Button('Start'),
-      winnerText = new Text('Default'),
+      winnerText = new Text('Press start'),
       elements = {
         hand: hand,
         revealButton: revealButton,

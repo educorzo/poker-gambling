@@ -15,10 +15,9 @@ export default class Hand extends PIXI.Container {
   }
 
   showHand() {
-    //Animation should be improved
-  /* var dealCardsAnimation = new DealCardsAnimation();
+   var dealCardsAnimation = new DealCardsAnimation();
 
-    dealCardsAnimation.deal(this._cards);*/
+    dealCardsAnimation.deal(this._cards);
   }
 
   fillCards() {
