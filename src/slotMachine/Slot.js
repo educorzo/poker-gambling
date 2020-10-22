@@ -31,8 +31,10 @@ export default class Slot extends PIXI.Container {
 
   refresh() {
     this._removeReels();
+    this._removeLine();
     this._createReels();
     this._addReels();
+    this._addLine();
   }
 
   _addBackground() {
@@ -108,13 +110,17 @@ export default class Slot extends PIXI.Container {
   }
 
   _addLine() {
-    let graphics = new PIXI.Graphics(),
-      reelArea = this.reels[0].getVisualArea();
+    let reelArea = this.reels[0].getVisualArea();
 
-    graphics.beginFill(0x00008b);
-    graphics.drawRect(0, reelArea.height / 2 + reelArea.y, this.width, 1);
+    this.line = new PIXI.Graphics();
+    this.line.beginFill(0x00008b);
+    this.line.drawRect(0, reelArea.height / 2 + reelArea.y, this.width, 1);
 
-    this.addChild(graphics);
+    this.addChild(this.line);
+  }
+
+  _removeLine() {
+    this.removeChild(this.line);
   }
 
   _onButtonsClick(interactiveEvent) {
