@@ -2,14 +2,17 @@ var PIXI = require('pixi.js');
 import ImageButton from '../designTools/ImageButton.js';
 
 export default class SlotButtons extends PIXI.Container {
-  constructor(textures) {
+  constructor(textures, reels) {
     super();
-    this.buttons  =[...Array(5).keys()].map(i => new ImageButton(textures['h_big.png'], i));
+    let numberOfButtons = reels.length;
+
+    this.buttons = [...Array(numberOfButtons).keys()].map(i => new ImageButton(textures['h_big.png'], i));
+
     this.buttons.forEach((button, index) => {
-        button.x = button.width * index + 125 * index;
-        button.scale.x = button.scale.y = 0.5;
-        this.interactive = true;
-        this.addChild(button);
+      button.pivot.x = button.width / 2;
+      button.scale.x = button.scale.y = 0.25;
+      this.addChild(button);
+      button.x = reels[index].x + reels[index].getVisualArea().width / 2;
     });
   }
 }

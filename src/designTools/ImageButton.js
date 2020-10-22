@@ -1,6 +1,6 @@
 var PIXI = require('pixi.js');
 
-export default class ImageButton extends PIXI.Sprite {
+export default class ImageButton extends PIXI.Container {
   constructor(image, id) {
     super();
     this.button = new PIXI.Sprite.from(image);

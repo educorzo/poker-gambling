@@ -24,7 +24,7 @@ export default class Game {
       this._hand.showHand();
       this._hand.fillCards();
       this._hand.hide();
-      this._slot.init();
+      this._slot.refresh();
       this._score.reduce();
       this._winnerText.setText('');
       this._gameState.changeState(GameState.Spinning);

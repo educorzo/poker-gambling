@@ -22,13 +22,17 @@ export default class Slot extends PIXI.Container {
   init() {
     this._createReels();
     this._addBackground();
-
-    this._addSlotButtons();
     this._addReels();
-
     this._addLine();
+    this._addSlotButtons();
 
     this.buttons.on('click', this._onButtonsClick.bind(this));
+  }
+
+  refresh() {
+    //Needs to refresh reels in a fancy way
+    this._createReels();
+    this._addReels();
   }
 
   _addBackground() {
@@ -80,7 +84,7 @@ export default class Slot extends PIXI.Container {
   }
 
   _addReels() {
-    this.reels.forEach((reel, index) => {
+    this.reels.forEach((reel) => {
       this.addChild(reel);
     });
   }
@@ -88,18 +92,18 @@ export default class Slot extends PIXI.Container {
   _addSlotButtons() {
     let reelArea = this.reels[0].getVisualArea();
 
-    this.buttons = new SlotButtons(this._textures);
+    if (this.buttons === undefined) {
+      this.buttons = new SlotButtons(this._textures, this.reels);
+      this.addChild(this.buttons);
 
-    this.buttons.x = 20; //TODO: Make button aligned with reels
-    this.buttons.y = reelArea.height + reelArea.y + this._frameSize;
-    this.buttons.scale.x = this.buttons.scale.y = 0.5;
-
-    this.addChild(this.buttons);
+      this.buttons.y = reelArea.height + reelArea.y + this._frameSize;
+      this.buttons.interactive = true;
+    }
   }
 
   _addLine() {
     let graphics = new PIXI.Graphics(),
-      reelArea = this.reels[0].getVisualArea();;
+      reelArea = this.reels[0].getVisualArea();
 
     graphics.beginFill(0x00008b);
     graphics.drawRect(0, reelArea.height / 2 + reelArea.y, this.width, 1);
