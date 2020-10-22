@@ -30,7 +30,7 @@ export default class Slot extends PIXI.Container {
   }
 
   refresh() {
-    //Needs to refresh reels in a fancy way
+    this._removeReels();
     this._createReels();
     this._addReels();
   }
@@ -86,6 +86,12 @@ export default class Slot extends PIXI.Container {
   _addReels() {
     this.reels.forEach((reel) => {
       this.addChild(reel);
+    });
+  }
+
+  _removeReels() {
+    this.reels.forEach((reel) => {
+      this.removeChild(reel);
     });
   }
 
