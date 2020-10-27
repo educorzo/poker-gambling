@@ -4,6 +4,7 @@ import Game from './Game.js';
 import Slot from './slotMachine/Slot.js';
 import Button from './designTools/Button.js';
 import Text from './designTools/Text.js';
+import LogoBanner from './designTools/LogoBanner.js';
 import GameState from './GameState.js';
 import Score from './Score.js';
 
@@ -16,6 +17,7 @@ export default class Setup {
       revealButton = new Button('Reveal'),
       startButton = new Button('Start'),
       winnerText = new Text('Press start'),
+      logo = new LogoBanner("Poker slot"),
       elements = {
         hand: hand,
         revealButton: revealButton,
@@ -26,50 +28,51 @@ export default class Setup {
         score: score
       },
       background = new PIXI.Graphics(),
-      handWidth = hand.width,
-      winnerTextWidth = winnerText.width,
       game = new Game(elements),
-      gameContainer = new PIXI.Container();
+      gameContainer = new PIXI.Container(),
+      padding = 20;
 
-    this._fillBackground(gamecontainer, background, 0x000000);
     gameContainer.addChild(background);
     gameContainer.addChild(hand);
+    gameContainer.addChild(logo);
     gameContainer.addChild(revealButton);
     gameContainer.addChild(startButton);
     gameContainer.addChild(slot);
     gameContainer.addChild(score);
     gameContainer.addChild(winnerText);
 
-    gameContainer.pivot.x = gameContainer.width/2;
-    gameContainer.x = window.innerWidth/2;
-    
-    hand.pivot.x = handWidth / 2;
-    hand.x = gameContainer.pivot.x;
-    hand.y = 20;
+    logo.fitSize(hand.width + padding, hand.height);
 
-    slot.pivot.x = slot.width / 2;
-    slot.x = gameContainer.pivot.x;
-    slot.y = 10;
-    
-    startButton.x = slot.x / 10;
-    startButton.y = 475;
-    
+    gameContainer.pivot.x = gameContainer.width / 2;
+    gameContainer.x = window.innerWidth / 2;
+
+     logo.x = 0;
+    this._center(hand, gameContainer);
+    hand.y = logo.height + padding;
+
+    this._center(slot, gameContainer);
+    slot.y = hand.y - padding / 2;
+
     revealButton.x = gameContainer.pivot.x;
-    revealButton.y = 475;
-    
-    score.y = startButton.y + startButton.height;
+    revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
+    score.y = startButton.y + startButton.height + padding/2;
 
-    winnerText.pivot.x = winnerTextWidth / 2;
-    winnerText.x = gameContainer.pivot.x;
-    winnerText.y = 250;
-
+    this._center(winnerText, gameContainer);
+    winnerText.y = slot.y + slot.height;
     this._fillBackground(gameContainer, background, 0x008000);
+
     app.stage.addChild(gameContainer);
+    gameContainer.scale.set(1.25,1.25); //TODO: Modify according to screen
   }
 
   _fillBackground(object, background, color) {
     background.beginFill(color);
-    background.drawRect(0, 0, object.width, object.height);
+    background.drawRect(0, 0, object.width, window.innerHeight);
     background.endFill();
+  }
+
+  _center(element, parent) {
+    element.pivot.x = element.width / 2 / element.scale.x;
+    element.x = parent.pivot.x;
   }
 }

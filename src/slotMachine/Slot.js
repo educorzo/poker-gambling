@@ -26,7 +26,7 @@ export default class Slot extends PIXI.Container {
     this._addLine();
     this._addSlotButtons();
 
-    this.buttons.on('click', this._onButtonsClick.bind(this));
+    this.buttons.on('pointertap', this._onButtonsClick.bind(this));
   }
 
   refresh() {
@@ -45,7 +45,7 @@ export default class Slot extends PIXI.Container {
     this._background = new PIXI.Graphics();
 
     this._background.beginFill(this._backgroundColor);
-    this._background.drawRect(0, reelArea.y - this._frameSize, widthOfSlotVisualArea, reelArea.height + this._frameSize * 2);
+    this._background.drawRoundedRect(0, reelArea.y - this._frameSize, widthOfSlotVisualArea, reelArea.height + this._frameSize * 2);
     this._background.endFill();
 
     this.addChild(this._background);

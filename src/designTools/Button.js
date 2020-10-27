@@ -7,7 +7,7 @@ export default class Button extends PIXI.Graphics {
     this.textStyle = new TextStyle();
     this.beginFill(0, 1);
     this._addText(title);
-    this.drawRect(this.x, this.y, this.buttonText.width, this.buttonText.height);
+    this.drawRoundedRect(this.x, this.y, this.buttonText.width, this.buttonText.height);
     this.interactive = true;
     this.id = id;
   }
