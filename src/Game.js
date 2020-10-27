@@ -13,8 +13,8 @@ export default class Game {
     this._slot = elements.slot;
     this._score = elements.score;
 
-    this._revealButton.on('click', this._finishGame.bind(this));
-    this._startButton.on('click', this._startGame.bind(this));
+    this._revealButton.on('pointertap', this._finishGame.bind(this));
+    this._startButton.on('pointertap', this._startGame.bind(this));
   }
 
   _startGame() {

@@ -9,8 +9,8 @@ export default class ImageButton extends PIXI.Container {
     this.id = id;
 
     this.addChild(this.button);
-    this.on('mousedown', this._onMouseDown.bind(this));
-    this.on('mouseup', this._onMouseUp.bind(this));
+    this.on('pointerdown', this._onMouseDown.bind(this));
+    this.on('pointerup', this._onMouseUp.bind(this));
   }
 
   _onMouseDown() {
