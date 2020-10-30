@@ -31,7 +31,12 @@ export default class Setup {
       background = new PIXI.Graphics(),
       game = new Game(elements),
       gameContainer = new PIXI.Container(),
-      padding = 20;
+      padding = 20,
+      gameResizer = new GameResizer(),
+      viewport = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
 
     gameContainer.addChild(background);
     gameContainer.addChild(hand);
@@ -63,13 +68,18 @@ export default class Setup {
     this._fillBackground(gameContainer, background, 0x008000);
 
     app.stage.addChild(gameContainer);
-    let gameResizer = new GameResizer(),
+
+    gameResizer.resizeGame(gameContainer, viewport);
+
+    window.onresize = function () {
       viewport = {
         width: window.innerWidth,
         height: window.innerHeight
-      };
-
-    gameResizer.resizeGame(gameContainer, viewport);
+      }
+      gameContainer.pivot.x = gameContainer.width / 2 / gameContainer.scale.x;
+      gameContainer.x = window.innerWidth / 2;
+      gameResizer.resizeGame(gameContainer, viewport);
+    };
   }
 
   _fillBackground(object, background, color) {

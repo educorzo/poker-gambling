@@ -7,8 +7,10 @@ let Application = PIXI.Application,
 const app = new Application({
 	width: window.innerWidth,
 	height: window.innerHeight,
-	backgroundColor: 0x006000
+  backgroundColor: 0x006000,
+  resizeTo: window
 });
+
 document.getElementById('gamecontainer').appendChild(app.view);
 
 loader.add('cards', 'assets/cards.json');
