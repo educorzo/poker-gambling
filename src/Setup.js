@@ -7,6 +7,7 @@ import Text from './designTools/Text.js';
 import LogoBanner from './designTools/LogoBanner.js';
 import GameState from './GameState.js';
 import Score from './Score.js';
+import GameResizer from './GameResizer.js';
 
 export default class Setup {
   init(resources, app) {
@@ -46,7 +47,7 @@ export default class Setup {
     gameContainer.pivot.x = gameContainer.width / 2;
     gameContainer.x = window.innerWidth / 2;
 
-     logo.x = 0;
+    logo.x = 0;
     this._center(hand, gameContainer);
     hand.y = logo.height + padding;
 
@@ -55,19 +56,25 @@ export default class Setup {
 
     revealButton.x = gameContainer.pivot.x;
     revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
-    score.y = startButton.y + startButton.height + padding/2;
+    score.y = startButton.y + startButton.height + padding / 2;
 
     this._center(winnerText, gameContainer);
     winnerText.y = slot.y + slot.height;
     this._fillBackground(gameContainer, background, 0x008000);
 
     app.stage.addChild(gameContainer);
-    gameContainer.scale.set(1.25,1.25); //TODO: Modify according to screen
+    let gameResizer = new GameResizer(),
+      viewport = {
+        width: window.innerWidth,
+        height: window.innerHeight
+      };
+
+    gameResizer.resizeGame(gameContainer, viewport);
   }
 
   _fillBackground(object, background, color) {
     background.beginFill(color);
-    background.drawRect(0, 0, object.width, window.innerHeight);
+    background.drawRect(0, 0, object.width, object.height);
     background.endFill();
   }
 
