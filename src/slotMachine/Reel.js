@@ -1,8 +1,8 @@
 var PIXI = require('pixi.js');
 import gsap from 'gsap';
 import PixiPlugin from "gsap/PixiPlugin";
-import Card from '../Card.js';
-import Shuffler from '../Shuffler.js';
+import Card from '../elements/Card.js';
+import Shuffler from '../elements/Shuffler.js';
 
 export default class Reel extends PIXI.Container {
   constructor(textures) {

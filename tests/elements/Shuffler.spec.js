@@ -1,4 +1,4 @@
-import Shuffler from './../src/Shuffler.js';
+import Shuffler from '../../src/elements/Shuffler.js';
 
 describe('Shuffler', function () {
   let randomState = 0;

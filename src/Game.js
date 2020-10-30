@@ -1,5 +1,5 @@
-import Shuffler from './Shuffler.js';
-import GameState from './GameState.js';
+import Shuffler from './elements/Shuffler.js';
+import GameState from './elements/GameState.js';
 var PokerComparer = require('@educorzo/poker-library');
 
 export default class Game {

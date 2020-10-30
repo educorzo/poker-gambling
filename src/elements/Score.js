@@ -1,5 +1,5 @@
 var PIXI = require('pixi.js');
-import TextStyle from './designTools/TextStyle.js';
+import TextStyle from '../designTools/TextStyle.js';
 import ScoreCounter from './ScoreCounter.js';
 
 export default class Score extends PIXI.Text{

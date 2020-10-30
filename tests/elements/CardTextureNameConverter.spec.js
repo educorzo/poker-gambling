@@ -1,4 +1,4 @@
-import CardTextureNameConverter from './../src/CardTextureNameConverter.js';
+import CardTextureNameConverter from './../../src/elements/CardTextureNameConverter.js';
 
 describe('CardTextureNameConverter', function () {
   describe('with invalid value ', () => {

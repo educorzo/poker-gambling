@@ -1,4 +1,4 @@
-import ScoreCounter from './../src/ScoreCounter.js';
+import ScoreCounter from './../../src/elements/ScoreCounter.js';
 
 describe('Score', function () {
     describe('when add victory', function () {

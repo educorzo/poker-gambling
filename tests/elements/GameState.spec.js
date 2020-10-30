@@ -1,4 +1,4 @@
-import GameState from './../src/GameState.js';
+import GameState from '../../src/elements/GameState.js';
 
 describe('GameState', function () {
     describe('when it is not described', function () {

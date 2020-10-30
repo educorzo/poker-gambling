@@ -1,12 +1,12 @@
 var PIXI = require('pixi.js');
-import Hand from './Hand.js';
+import Hand from './elements/Hand.js';
 import Game from './Game.js';
 import Slot from './slotMachine/Slot.js';
 import Button from './designTools/Button.js';
 import Text from './designTools/Text.js';
 import LogoBanner from './designTools/LogoBanner.js';
-import GameState from './GameState.js';
-import Score from './Score.js';
+import GameState from './elements/GameState.js';
+import Score from './elements/Score.js';
 import GameResizer from './GameResizer.js';
 
 export default class Setup {

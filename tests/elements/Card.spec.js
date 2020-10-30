@@ -1,5 +1,5 @@
-import Card from './../src/Card.js';
-import Textures from './utils/FakeTextures.js';
+import Card from './../../src/elements/Card.js';
+import Textures from '../utils/FakeTextures.js';
 
 describe('Card', function () {
     it('should be represented as string', function() {

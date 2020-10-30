@@ -1,6 +1,6 @@
-import Hand from './../src/Hand.js';
-import Card from './../src/Card.js';
-import Textures from './utils/FakeTextures.js';
+import Hand from '../../src/elements/Hand.js';
+import Card from '../../src/elements/Card.js';
+import Textures from '../utils/FakeTextures.js';
 
 describe('Hand', function () {
     it('should be represented as string', function() {

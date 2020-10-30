@@ -1,7 +1,7 @@
 var PIXI = require('pixi.js');
 import Card from './Card.js';
 import Shuffler from './Shuffler.js';
-import DealCardsAnimation from './animations/DealCardsAnimation.js';
+import DealCardsAnimation from '../animations/DealCardsAnimation.js';
 
 export default class Hand extends PIXI.Container {
   constructor(textures, cards) {

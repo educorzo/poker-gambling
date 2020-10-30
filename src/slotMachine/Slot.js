@@ -1,5 +1,5 @@
 var PIXI = require('pixi.js');
-import GameState from '../GameState.js';
+import GameState from '../elements/GameState.js';
 import Reel from './Reel.js';
 import SlotButtons from './SlotButtons.js';
 
