@@ -7,7 +7,7 @@ export default class TextStyle extends PIXI.TextStyle {
         fontSize: 36,
         fontStyle: 'italic',
         fontWeight: 'bold',
-        fill: ['#ffffff', '#800040'], // gradient
+        fill: ['#ffffff', '#006000'], // gradient
         stroke: '#4a1850',
         strokeThickness: 5,
         dropShadow: true,
@@ -17,6 +17,7 @@ export default class TextStyle extends PIXI.TextStyle {
         dropShadowDistance: 6,
         wordWrap: true,
         wordWrapWidth: 440,
+        padding: 2
     });
   }
 }

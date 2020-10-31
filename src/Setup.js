@@ -61,6 +61,7 @@ export default class Setup {
 
     revealButton.x = gameContainer.pivot.x;
     revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
+    score.x = slot.x - slot.width/2;
     score.y = startButton.y + startButton.height + padding / 2;
 
     this._center(winnerText, gameContainer);

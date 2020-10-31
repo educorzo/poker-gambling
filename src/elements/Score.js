@@ -2,12 +2,12 @@ var PIXI = require('pixi.js');
 import TextStyle from '../designTools/TextStyle.js';
 import ScoreCounter from './ScoreCounter.js';
 
-export default class Score extends PIXI.Text{
+export default class Score extends PIXI.Text {
     constructor(score) {
-      super();
-      this.style = new TextStyle();
-      this._scoreCounter = new ScoreCounter(score);
-      this.text = this._scoreCounter.get();
+        super();
+        this.style = new TextStyle();
+        this._scoreCounter = new ScoreCounter(score);
+        this.text = this._scoreCounter.get();
     }
 
     addVictory() {
