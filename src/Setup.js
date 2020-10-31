@@ -59,12 +59,14 @@ export default class Setup {
     this._center(slot, gameContainer);
     slot.y = hand.y - padding / 2;
 
-    revealButton.x = gameContainer.pivot.x;
+    startButton.x = slot.x - slot.width / 2; //Slot.x is in the center of the screen
+    revealButton.x = slot.x + slot.width / 2 - revealButton.width;
     revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
-    score.x = slot.x - slot.width/2;
+    score.x = slot.x - slot.width / 2;
     score.y = startButton.y + startButton.height + padding / 2;
 
     this._center(winnerText, gameContainer);
+    winnerText.scale.set(1.25, 1.25);
     winnerText.y = slot.y + slot.height;
     this._fillBackground(gameContainer, background, 0x008000);
 
