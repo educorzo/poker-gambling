@@ -67,7 +67,7 @@ export default class Slot extends PIXI.Container {
 
     return Promise.all(promises).then(function(){
       if(me._score.canIPlay()){
-        return me.buttons.animateButtons();
+        me.buttons.animateButtons();
       }
       return Promise.resolve(this);
     });
