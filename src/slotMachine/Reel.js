@@ -20,15 +20,12 @@ export default class Reel extends PIXI.Container {
 
   spin() {
     let randomizer = Math.round(Math.random() * (this.numSymbols - 1));
-    /*return this.animation.to(this.cards, {
 
-      pixi: { blurY: 0.1}
-    });
-    */
     this._simpleSpin(1);
     this._simpleSpin(0.25);
     this.downReel(randomizer, 0.01);
     this._simpleSpin(0.25);
+
     this._simpleSpin(0.75);
     this._simpleSpin(1.50);
     return this._rebound();
@@ -44,8 +41,7 @@ export default class Reel extends PIXI.Container {
   }
 
   downReel(times, duration) {
-    var me = this;
-    this._tween(duration, this.cardHeight * times);//.then(me._removeFilters.bind(me));
+    this._tween(duration, this.cardHeight * times);
   }
 
   getVisualArea() {
@@ -87,42 +83,26 @@ export default class Reel extends PIXI.Container {
   }
 
   _rebound() {
-    var me = this;
     this._tween(1.5, -10);
-    return this._tween(1.5, 10);//.then(me._removeFilters.bind(me));
+    return this._tween(1.5, 10);
   }
 
   _tween(duration, yMovement) {
-    var me = this;
-
     return this.animation.to(this.cards, {
       duration: duration,
       ease: 'none',
       y: '+=' + yMovement,
-      pixi: { blurY: this._blurring(duration)},
+      pixi: { blurY: this._blurring(duration) },
       modifiers: {
         y: gsap.utils.unitize(y => parseFloat(y) % (this.cardHeight * this.numSymbols))
-      }, 
-      onComplete: function() {
-        if(duration === 1.5) {
-          me._removeFilters();
-        }
       }
     });
   }
 
   _blurring(duration) {
     let maxBlurry = 7,
-      maxDuration = 1.5,
-      result = maxBlurry - (maxBlurry / maxDuration * duration);
-    return result;
-  }
+      maxDuration = 1.5;
 
-  _removeFilters(){
-    this.cards.forEach(function(card){
-      card.filters = [];
-    });
-
-    return Promise.resolve();
+    return maxBlurry - (maxBlurry / maxDuration * duration);
   }
 }
