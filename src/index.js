@@ -8,7 +8,9 @@ const app = new Application({
 	width: window.innerWidth,
 	height: window.innerHeight,
   backgroundColor: 0x006000,
-  resizeTo: window
+  resizeTo: window,
+  autoDensity: true,
+  resolution: 2
 });
 
 document.getElementById('gamecontainer').appendChild(app.view);
