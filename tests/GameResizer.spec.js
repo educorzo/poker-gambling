@@ -19,7 +19,7 @@ describe('GameResizer', function () {
                 viewport.height = 600;
                 gameResizer.resizeGame(gameContainer, viewport);
 
-                expect(gameContainer.scale.set).toHaveBeenCalledWith(0.8655261321906622, 0.8655261321906622);
+                expect(gameContainer.scale.set).toHaveBeenCalledWith(0.9090909090909092, 0.9090909090909091);
             });
         });
         describe('and screen is not wider than game', function () {

@@ -3,7 +3,7 @@ export default class GameResizer {
   resizeGame(game, viewport) {
     var newGameWidth, newGameHeight,
       safeWidth = 385.0400085449219,
-      safeHeight = 693.219970703125;
+      safeHeight = 660;
 
     if (game.height / game.width > viewport.height / viewport.width) {
       if (safeHeight / game.width > viewport.height / viewport.width) {

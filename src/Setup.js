@@ -47,7 +47,7 @@ export default class Setup {
     gameContainer.addChild(score);
     gameContainer.addChild(winnerText);
 
-    logo.fitSize(hand.width + padding, hand.height);
+    logo.fitSize(hand.width + padding, hand.height / 1.25);
 
     gameContainer.pivot.x = gameContainer.width / 2;
     gameContainer.x = window.innerWidth / 2;
@@ -63,7 +63,8 @@ export default class Setup {
     revealButton.x = slot.x + slot.width / 2 - revealButton.width;
     revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
     score.x = slot.x - slot.width / 2;
-    score.y = startButton.y + startButton.height + padding / 2;
+    score.y = startButton.y + startButton.height;
+    score.scale.set(0.75, 0.75);
 
     this._center(winnerText, gameContainer);
     winnerText.scale.set(1.25, 1.25);
