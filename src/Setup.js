@@ -67,7 +67,7 @@ export default class Setup {
     score.scale.set(0.75, 0.75);
 
     this._center(winnerText, gameContainer);
-    winnerText.scale.set(1.25, 1.25);
+    winnerText.scale.set(1.5, 1.5);
     winnerText.y = slot.y + slot.height;
     this._fillBackground(gameContainer, background, 0x008000);
 

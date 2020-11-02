@@ -52,6 +52,7 @@ export default class Game {
       } else {
         this._winnerText.setText('Tie');
       }
+      this._winnerText.pivot.x = this._winnerText.width / 2 / this._winnerText.scale.x;
     }
   }
 }
