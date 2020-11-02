@@ -12,7 +12,7 @@ export default class Slot extends PIXI.Container {
     this._score = score;
     this._backgroundColor = 0x000000;
     this._frameSize = 20;
-    this._timeBetweenReels = 100;
+    this._timeBetweenReels = 150;
     this._numberOfReels = 5;
     this._marginBetweenReels = this._frameSize / 2;
 

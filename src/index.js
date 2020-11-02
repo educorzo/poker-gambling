@@ -10,7 +10,8 @@ const app = new Application({
   backgroundColor: 0x006000,
   resizeTo: window,
   autoDensity: true,
-  resolution: 2
+  resolution: 2,
+  antialias: true
 });
 
 document.getElementById('gamecontainer').appendChild(app.view);

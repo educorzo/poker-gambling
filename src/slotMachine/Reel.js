@@ -88,6 +88,7 @@ export default class Reel extends PIXI.Container {
   }
 
   _tween(duration, yMovement) {
+    var me = this;
     return this.animation.to(this.cards, {
       duration: duration,
       ease: 'none',
@@ -95,14 +96,26 @@ export default class Reel extends PIXI.Container {
       pixi: { blurY: this._blurring(duration) },
       modifiers: {
         y: gsap.utils.unitize(y => parseFloat(y) % (this.cardHeight * this.numSymbols))
+      },
+      onComplete : function(){
+        if(duration === 1.5){
+          me._removeFilters();
+        }
       }
     });
   }
 
   _blurring(duration) {
-    let maxBlurry = 7,
+    let maxBlurry = 27,
       maxDuration = 1.5;
 
     return maxBlurry - (maxBlurry / maxDuration * duration);
+  }
+
+  //Some screen resolutions do not work well with filters setted to 0
+  _removeFilters(){
+    this.cards.forEach(function(card){
+      card.filters = [];
+    });
   }
 }
