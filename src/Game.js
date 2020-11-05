@@ -18,8 +18,9 @@ export default class Game {
   }
 
   _startGame() {
-    let me = this;
-    if (this._score.canIPlay() && (this._gameState.getState() === GameState.Reveal || this._gameState.getState() === GameState.Initial)) {
+    let me = this,
+    currentState = this._gameState.getState();
+    if (this._score.canIPlay() && (currentState === GameState.Reveal || currentState === GameState.Initial)) {
       this._shuffler.resetCurrentValues();
       this._hand.showHand();
       this._hand.fillCards();
@@ -36,23 +37,26 @@ export default class Game {
   }
 
   _finishGame() {
-    let winner = '';
-    if (this._gameState.getState() === GameState.Start || this._gameState.getState() === GameState.Down1 ||
-      this._gameState.getState() === GameState.Down2) {
-      winner = PokerComparer.compareTwoHands(this._hand.toString(), this._slot.toString());
+    let currentState = this._gameState.getState();
 
+    if (currentState === GameState.Start || currentState === GameState.Down1 || currentState === GameState.Down2) {
+      this._revealWinner();
       this._gameState.changeState(GameState.Reveal);
-      this._hand.reveal();
-
-      if (winner > 0) {
-        this._winnerText.setText('You lose');
-      } else if (winner < 0) {
-        this._winnerText.setText('You win !!');
-        this._score.addVictory();
-      } else {
-        this._winnerText.setText('Tie');
-      }
-      this._winnerText.pivot.x = this._winnerText.width / 2 / this._winnerText.scale.x;
     }
+  }
+
+  _revealWinner() {
+    let winner = PokerComparer.compareTwoHands(this._hand.toString(), this._slot.toString());
+    this._hand.reveal();
+
+    if (winner > 0) {
+      this._winnerText.setText('You lose');
+    } else if (winner < 0) {
+      this._winnerText.setText('You win !!');
+      this._score.addVictory();
+    } else {
+      this._winnerText.setText('Tie');
+    }
+    this._winnerText.pivot.x = this._winnerText.width / 2 / this._winnerText.scale.x;
   }
 }
