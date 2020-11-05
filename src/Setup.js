@@ -12,7 +12,7 @@ import GameResizer from './GameResizer.js';
 export default class Setup {
   init(resources, app) {
     let gameState = new GameState(),
-      score = new Score(5),
+      score = new Score(6),
       hand = new Hand(resources.cards.textures),
       slot = new Slot(resources.cards.textures, gameState, score),
       revealButton = new Button('Reveal'),
@@ -29,7 +29,6 @@ export default class Setup {
         score: score
       },
       background = new PIXI.Graphics(),
-      game = new Game(elements),
       gameContainer = new PIXI.Container(),
       padding = 20,
       gameResizer = new GameResizer(),
@@ -37,6 +36,8 @@ export default class Setup {
         width: window.innerWidth,
         height: window.innerHeight
       };
+      
+    new Game(elements)
 
     gameContainer.addChild(background);
     gameContainer.addChild(hand);
@@ -62,8 +63,9 @@ export default class Setup {
     startButton.x = slot.x - slot.width / 2; //Slot.x is in the center of the screen
     revealButton.x = slot.x + slot.width / 2 - revealButton.width;
     revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
-    score.x = slot.x - slot.width / 2;
-    score.y = startButton.y + startButton.height;
+    score.anchor.set(0.5, 0.5);
+    score.x = slot.x;
+    score.y = startButton.y + startButton.height * 1.5;
     score.scale.set(0.75, 0.75);
 
     this._center(winnerText, gameContainer);
