@@ -12,7 +12,7 @@ import GameResizer from './GameResizer.js';
 export default class Setup {
   init(resources, app) {
     let gameState = new GameState(),
-      score = new Score(6),
+      score = new Score(100),
       hand = new Hand(resources.cards.textures),
       slot = new Slot(resources.cards.textures, gameState, score),
       revealButton = new Button('Reveal'),
@@ -36,7 +36,7 @@ export default class Setup {
         width: window.innerWidth,
         height: window.innerHeight
       };
-      
+
     new Game(elements)
 
     gameContainer.addChild(background);

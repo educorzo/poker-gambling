@@ -19,9 +19,9 @@ export default class Game {
 
   _startGame() {
     let me = this,
-    currentState = this._gameState.getState();
+      currentState = this._gameState.getState();
     if (this._score.canIPlay() && (currentState === GameState.Reveal || currentState === GameState.Initial)) {
-      this._shuffler.resetCurrentValues();
+      this._shuffler.reset();
       this._hand.showHand();
       this._hand.fillCards();
       this._hand.hide();

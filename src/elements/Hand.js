@@ -15,16 +15,17 @@ export default class Hand extends PIXI.Container {
   }
 
   showHand() {
-   var dealCardsAnimation = new DealCardsAnimation();
+    var dealCardsAnimation = new DealCardsAnimation();
 
     dealCardsAnimation.deal(this._cards);
   }
 
   fillCards() {
-    let shuffler = new Shuffler();
+    let shuffler = new Shuffler(),
+      bankCards = shuffler.getBankCardsValues();
 
-    this._cards.forEach((card) => {
-      card.setValue(shuffler.getRandomCardValue());
+    this._cards.forEach((card, index) => {
+      card.setValue(bankCards[index]);
     });
   }
 
