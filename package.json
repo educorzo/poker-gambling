@@ -30,7 +30,7 @@
     "karma-webpack": "^4.0.2"
   },
   "dependencies": {
-    "@educorzo/poker-library": "^1.0.2",
+    "@educorzo/poker-library": "^1.1.1",
     "gsap": "^3.5.1",
     "pixi.js": "^5.3.3"
   }
