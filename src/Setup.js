@@ -1,5 +1,5 @@
 var PIXI = require('pixi.js');
-import Hand from './elements/Hand.js';
+import BankHand from './elements/BankHand.js';
 import Game from './Game.js';
 import Slot from './slotMachine/Slot.js';
 import Button from './designTools/Button.js';
@@ -13,14 +13,14 @@ export default class Setup {
   init(resources, app) {
     let gameState = new GameState(),
       score = new Score(100),
-      hand = new Hand(resources.cards.textures),
+      bankHand = new BankHand(resources.cards.textures),
       slot = new Slot(resources.cards.textures, gameState, score),
       revealButton = new Button('Reveal'),
       startButton = new Button('Start'),
       winnerText = new Text('Press start'),
       logo = new LogoBanner("Poker slot"),
       elements = {
-        hand: hand,
+        bankHand: bankHand,
         revealButton: revealButton,
         startButton: startButton,
         winnerText: winnerText,
@@ -40,7 +40,7 @@ export default class Setup {
     new Game(elements)
 
     gameContainer.addChild(background);
-    gameContainer.addChild(hand);
+    gameContainer.addChild(bankHand);
     gameContainer.addChild(logo);
     gameContainer.addChild(revealButton);
     gameContainer.addChild(startButton);
@@ -48,21 +48,21 @@ export default class Setup {
     gameContainer.addChild(score);
     gameContainer.addChild(winnerText);
 
-    logo.fitSize(hand.width + padding, hand.height / 1.25);
+    logo.fitSize(bankHand.width + padding, bankHand.height / 1.25);
 
     gameContainer.pivot.x = gameContainer.width / 2;
     gameContainer.x = window.innerWidth / 2;
 
     logo.x = 0;
-    this._center(hand, gameContainer);
-    hand.y = logo.height + padding;
+    this._center(bankHand, gameContainer);
+    bankHand.y = logo.height + padding;
 
     this._center(slot, gameContainer);
-    slot.y = hand.y - padding / 2;
+    slot.y = bankHand.y - padding / 2;
 
     startButton.x = slot.x - slot.width / 2; //Slot.x is in the center of the screen
     revealButton.x = slot.x + slot.width / 2 - revealButton.width;
-    revealButton.y = startButton.y = hand.y + hand.height + padding + slot.height;
+    revealButton.y = startButton.y = bankHand.y + bankHand.height + padding + slot.height;
     score.anchor.set(0.5, 0.5);
     score.x = slot.x;
     score.y = startButton.y + startButton.height * 1.5;

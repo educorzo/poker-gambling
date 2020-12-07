@@ -6,7 +6,7 @@ export default class Game {
   constructor(elements) {
     this._shuffler = new Shuffler();
     this._gameState = elements.gameState;
-    this._hand = elements.hand;
+    this._bankHand = elements.bankHand;
     this._revealButton = elements.revealButton;
     this._startButton = elements.startButton;
     this._winnerText = elements.winnerText;
@@ -22,9 +22,9 @@ export default class Game {
       currentState = this._gameState.getState();
     if (this._score.canIPlay() && (currentState === GameState.Reveal || currentState === GameState.Initial)) {
       this._shuffler.reset();
-      this._hand.showHand();
-      this._hand.fillCards();
-      this._hand.hide();
+      this._bankHand.show();
+      this._bankHand.fillCards();
+      this._bankHand.hide();
       this._slot.refresh();
       this._score.reduce();
       this._winnerText.setText('');
@@ -46,8 +46,8 @@ export default class Game {
   }
 
   _revealWinner() {
-    let winner = PokerComparer.compareTwoHands(this._hand.toString(), this._slot.toString());
-    this._hand.reveal();
+    let winner = PokerComparer.compareTwoHands(this._bankHand.toString(), this._slot.toString());
+    this._bankHand.reveal();
 
     if (winner > 0) {
       this._winnerText.setText('You lose');

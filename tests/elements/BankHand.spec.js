@@ -1,18 +1,18 @@
-import Hand from '../../src/elements/Hand.js';
+import BankHand from '../../src/elements/BankHand.js';
 import Card from '../../src/elements/Card.js';
 import Textures from '../utils/FakeTextures.js';
 
-describe('Hand', function () {
+describe('BankHand', function () {
     it('should be represented as string', function() {
-      let hand,
+      let bankHand,
         card = new Card(Textures),
         card2 = new Card(Textures);
 
       card.setValue('2d');
       card2.setValue('As');
 
-      hand = new Hand(Textures, [card, card2]);
+      bankHand = new BankHand(Textures, [card, card2]);
 
-      expect(hand.toString()).toEqual('2d As');
+      expect(bankHand.toString()).toEqual('2d As');
     });
 });
