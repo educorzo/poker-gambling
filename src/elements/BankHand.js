@@ -60,11 +60,7 @@ export default class BankHand extends PIXI.Container {
   }
 
   _setCards(cards) {
-    this._cards = [];
-
-    cards.forEach((card) => {
-      this._cards.push(card);
-    });
+    this._cards = [...cards];
   }
 
   _getPosition(cards, index) {
