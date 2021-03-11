@@ -21,18 +21,5 @@ jobs:
     - run: npm install
     - run: npm run testCI
     - run: npm run production
-    - uses: actions/checkout@v2
-    - name: Deploy
-    - shell: pwsh
-      env:
-        EMAIL: ${{ secrets.EMAIL }}
-        USER: ${{ secrets.USER }}
-      run: |
-        mv dist docs
-        git config --global user.email "$env:EMAIL"
-        git config --global user.name "$env:USER"
-        git add .
-        git commit --message 'release'
-        git push
       env:
         CI: true
