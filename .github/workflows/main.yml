@@ -21,7 +21,7 @@ jobs:
     - run: npm install
     - run: npm run testCI
     - run: npm run production
-    - uses:  actions/checkout@v2
+    - uses: actions/checkout@v2
     - name: Deploy
     - shell: pwsh
       env:
