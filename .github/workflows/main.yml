@@ -31,5 +31,6 @@ jobs:
         git add . -f
         git commit --message 'release'
         git push
+
       env:
         CI: true
