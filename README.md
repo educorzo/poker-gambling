@@ -3,4 +3,4 @@ Beat the hidden cards by using the slot machine. Down the reels by using the hea
 
 ![](https://i.imgur.com/BjEYsrG.png)
 
-Gihub pages is activated for Master branch, docs folder so you can see the app by clicking [here](https://educorzo.github.io/poker-gambling/)
+Currently, after pushing against Master branch, the app will be deployed in docs folder. Thanks to github pages you can see the app by clicking [here](https://educorzo.github.io/poker-gambling/)
