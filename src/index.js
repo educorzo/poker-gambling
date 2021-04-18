@@ -16,7 +16,7 @@ const app = new Application({
 
 document.getElementById('gamecontainer').appendChild(app.view);
 
-loader.add('cards', 'assets/cards.json');
+loader.add('cards', 'cards.json');
 
 loader.load((loader, resources) => {
   let setup = new Setup();
