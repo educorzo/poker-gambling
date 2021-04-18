@@ -25,7 +25,7 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin([{
             from: 'build/assets',
-            to: 'assets'
+            to: ''
         }]),
         new HTMLWebpackPlugin({
             template: 'build/index.html',
